@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Script to keep local edits of Hacker theme in sync with upstream.
+
+blog_dir=$HOME/projects/blog
+blog_theme=$HOME/projects/blog-theme
+# Directories that contain assets that can override the selected github pages
+# theme. https://help.github.com/articles/adding-a-jekyll-theme-to-your-github-pages-site/
+theme_dirs=( _layouts _includes _sass assets )
+
+# Loop through the directories
+for dir in ${theme_dirs[@]}; do
+  # Sanity check in case variables are unset; over-kill but set -u is the devil
+  if [[ -n "$blog_theme" ]] && [[ -n "$dir" ]] && [[ -n "$blog_dir" ]]; then
+    # Sync files from my blog to the local clone of the theme
+    # Goal; update the local theme's git with the changes, and maintain a fork
+    rsync -avz --delete $blog_dir/$dir $blog_theme/$dir
+  fi
+done
