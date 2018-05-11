@@ -14,6 +14,6 @@ for dir in ${theme_dirs[@]}; do
   if [[ -n "$blog_theme" ]] && [[ -n "$dir" ]] && [[ -n "$blog_dir" ]]; then
     # Sync files from my blog to the local clone of the theme
     # Goal; update the local theme's git with the changes, and maintain a fork
-    rsync -avz --delete $blog_dir/$dir $blog_theme/$dir
+    rsync -avz --delete $blog_dir/$dir/ $blog_theme/$dir/
   fi
 done
